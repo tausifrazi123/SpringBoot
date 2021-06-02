@@ -1,13 +1,9 @@
 package com.javatechie.ps.api.controller;
 
 import com.javatechie.ps.api.entity.Payment;
-import com.javatechie.ps.api.repository.PaymentRepository;
 import com.javatechie.ps.api.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
@@ -26,5 +22,10 @@ public class PaymentController {
     public String paymentProcessing(){
         //api should be third party payment gateway i.e. paypal
         return new Random().nextBoolean() ? "success":"false";
+    }
+
+    @GetMapping("/{orderId}")
+    public Payment findPaymentByOrderId(@PathVariable int orderId){
+        return service.findPaymentHistoryByOrderId(orderId);
     }
 }
